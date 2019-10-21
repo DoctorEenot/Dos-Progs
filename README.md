@@ -1,6 +1,6 @@
 # Dos-Progs
 
-# So here you can find diffrent dos oriiented exploit for different sites
+# So here you can find diffrent dos oriented exploit for different sites
 
 # egedos.py
   Dos exploit for site check.ege.edu.ru
