@@ -7,6 +7,8 @@
   That site has problems with custom captcha
   check.ege.edu.ru/api/captcha - its not optimised
   so its the best target to kill server
+  Don't forget to change ip of check.ege.edu.ru server,
+  I just don't want to use hostname of server.
   
 # rcoiDos.py
   Dos exploit for iac46.ru
