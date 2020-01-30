@@ -39,14 +39,14 @@ def dos():#Pretty simple dos
                 break
 
 
+if __name__ = '__main__':
+    t = []
+    n = 500
+    for i in range(n):
+            t.append(multiprocessing.Process(target = dos))
 
-t = []
-n = 500
-for i in range(n):
-        t.append(multiprocessing.Process(target = dos))
+    for i in range(n):
+            t[i].start()
 
-for i in range(n):
-        t[i].start()
-
-for i in range(n):
-        t[i].join()
+    for i in range(n):
+            t[i].join()
