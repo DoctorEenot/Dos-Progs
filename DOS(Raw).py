@@ -71,7 +71,7 @@ def static_port_dos(port):
      
 
 def main():
-    
+    global IP, N_OF_THREADS
     PR = int(input("Port : "))
     IP = input("IP : ")
     ps = int(input("Packet size(0 if default): "))
